@@ -21,6 +21,14 @@ Route::get('/LoremIpsumGenerator', function()
 	return View::make('loremipsum');
 });
 
+Route::post('/LoremIpsumGenerator', function()
+{
+	$generator = new Badcow\LoremIpsum\Generator(); 
+	$paragraphs = $generator->getParagraphs($_POST['numparagraphs']); 
+	
+	return View::make('loremipsum')
+		->with('paragraphs', $paragraphs);
+});
 
 Route::get('/RandomUserGenerator', function()
 {
