@@ -13,5 +13,16 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('home');
+});
+
+Route::get('/LoremIpsumGenerator', function()
+{
+	return View::make('loremipsum');
+});
+
+
+Route::get('/RandomUserGenerator', function()
+{
+	return View::make('randomuser');
 });
