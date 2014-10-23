@@ -18,19 +18,50 @@ Route::get('/', function()
 
 Route::get('/LoremIpsumGenerator', function()
 {
-	return View::make('loremipsum');
+	$numparagraphs = 5;
+	return View::make('loremipsum')
+		->with('numparagraphs', $numparagraphs);
 });
 
 Route::post('/LoremIpsumGenerator', function()
 {
 	$generator = new Badcow\LoremIpsum\Generator(); 
-	$paragraphs = $generator->getParagraphs($_POST['numparagraphs']); 
-	
+	if($_POST['numparagraphs'] > 10)
+	{
+		$paragraphs = $generator->getParagraphs(5); 
+		$numparagraphs = 5;
+	}
+	else 
+	{
+		$paragraphs = $generator->getParagraphs($_POST['numparagraphs']);
+		$numparagraphs = $_POST['numparagraphs']; 
+	}
 	return View::make('loremipsum')
-		->with('paragraphs', $paragraphs);
+		->with('paragraphs', $paragraphs)
+		->with('numparagraphs', $numparagraphs);
 });
 
 Route::get('/RandomUserGenerator', function()
 {
-	return View::make('randomuser');
+	$numusers = 5;
+	return View::make('randomuser')
+		->with('numusers', $numusers);
 });
+
+Route::post('/RandomUserGenerator', function()
+{
+	$faker = Faker\Factory::create();
+	if($_POST['numusers'] > 10)
+	{
+		$numusers = 5;
+	}
+	else 
+	{
+		$numusers = $_POST['numusers'];
+	}
+	
+	return View::make('randomuser')
+		->with('faker', $faker)
+		->with('numusers', $numusers);
+});
+
